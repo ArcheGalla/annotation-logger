@@ -1,5 +1,7 @@
 # annotation-logger
 
+[![npm version](https://badge.fury.io/js/annotation-logger.svg)](https://badge.fury.io/js/annotation-logger) [![CircleCI](https://circleci.com/gh/kenju/annotation-logger.svg?style=svg)](https://circleci.com/gh/kenju/annotation-logger)
+
 <!-- TOC -->
 
 - [annotation-logger](#annotation-logger)
