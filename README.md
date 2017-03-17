@@ -1,8 +1,8 @@
-# simple-logger
+# annotation-logger
 
 <!-- TOC -->
 
-- [simple-logger](#simple-logger)
+- [annotation-logger](#annotation-logger)
 - [Install](#install)
 - [Usage](#usage)
 
@@ -11,13 +11,13 @@
 # Install
 
 ```bash
-yarn add simple-logger
+yarn add annotation-logger
 ```
 
 or 
 
 ```bash
-npm install simple-logger
+npm install annotation-logger
 ```
 
 # Usage
@@ -25,7 +25,7 @@ npm install simple-logger
 ```js
 import {
   loggable,
-} from 'simple-logger';
+} from 'annotation-logger';
 
 class Cat {
   @loggable(arguments)

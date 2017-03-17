@@ -1,9 +1,9 @@
 {
-  "name": "simple-logger",
+  "name": "annotation-logger",
   "version": "0.1.0",
   "description": "Annotation-triggered method call logging for your ES6 projects.",
   "main": "lib/src/index.js",
-  "repository": "ssh://git@github.com/kenju/simple-logger.git",
+  "repository": "ssh://git@github.com/kenju/annotation-logger.git",
   "author": "Kenju Wagatsuma <ken901waga@gmail.com>",
   "scripts": {
     "reset": "rm -Rf lib",
