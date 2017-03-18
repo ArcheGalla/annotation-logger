@@ -4,30 +4,36 @@
 function getArgumentNames(func) {
   const args = func.toString().match(/\w.+?\(([^)]*)\)/)[1];
   return args.split(',').map(arg => {
-    return arg.replace(/\/\*.*\*\//, '').trim();
+    return arg.replace(/[{}]/, '').replace(/\/\*.*\*\//, '').trim();
   }).filter(arg => arg);
+}
+
+function buildParamsLog(args, argsName) {
+  return Object.keys(args).map(index => {
+    if (typeof args[index] === 'object') {
+      return Object.keys(args[index]).map(key => {
+        return `${key}="${args[index][key]}"`;
+      }).join(', ');
+    } else {
+      return `${argsName[index]}="${args[index]}"`;
+    }
+  }).join(', ');
 }
 
 /**
  * Wrap function and log about its parameters info.
- *    [loggable] Cat#hello
- *         0: name = Cathy
- *         1: msg = Good Morning
+ *     [debugLog] Cat#hello(name="Cathy", msg="Good Morning")
  */
-export function loggable(...params): MethodDecorator {
+export function debugLog(...params): MethodDecorator {
   return (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) => {
     return {
       ...descriptor,
       value() {
         const func = descriptor.value;
-        const args = arguments;
-        console.info(`[loggable] ${target.constructor.name}#${propertyKey}`);
         const argsName = getArgumentNames(func);
-        Object.keys(args).forEach(index => {
-          console.info(`           ${index}: ${argsName[index]} = ${args[index]}`);
-        });
-        // calls original function with original arguments
-        return func(...arguments);
+        const args = arguments;
+        console.log(`[debugLog] ${target.constructor.name}#${propertyKey}(${buildParamsLog(args, argsName)})`);
+        return func(...arguments); // calls original function with original arguments
       },
     };
   };

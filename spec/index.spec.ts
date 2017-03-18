@@ -1,13 +1,22 @@
 import 'should';
 import {
-  loggable,
+  debugLog,
 } from '../src/index';
 
 describe('Decorator', () => {
   class Cat {
-    @loggable(arguments)
+    @debugLog(arguments)
     public hello(name, msg) {
       return `${msg}, I am ${name}!`;
+    }
+    
+    @debugLog(arguments)
+    public info({ name, age }) {
+      return {
+        type: 'cat',
+        name,
+        age,
+      };
     }
   }
 
@@ -20,6 +29,11 @@ describe('Decorator', () => {
     it('should display console.info about method params info');
     it('should not modify original function and its arguments', () => {
       cat.hello('Cathy', 'Good Morning').should.equal('Good Morning, I am Cathy!');
+      cat.info({ name: 'cathy', age: 8 }).should.deepEqual({
+        type: 'cat',
+        name: 'cathy',
+        age: 8,
+      });
     });
   });
 });
