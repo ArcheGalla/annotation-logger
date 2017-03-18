@@ -26,19 +26,44 @@ npm install annotation-logger
 
 ```js
 import {
-  loggable,
+  debugLog,
 } from 'annotation-logger';
 
 class Cat {
-  @loggable(arguments)
+  @debugLog(arguments)
   public hello(name, msg) {
     return `${msg}, I am ${name}!`;
+  }
+  
+  @debugLog(arguments)
+  public info({ name, age }) {
+    return {
+      type: 'cat',
+      name,
+      age,
+    };
+  }
+  
+  @timeLog(arguments)
+  public walk() {
+    console.log('walking...');
+    for (let i = 0; i < 100; i++) {
+      // do nothing
+    }
+    console.log('now I feel sleepy...');
   }
 }
 
 const cat = new Cat();
+
 cat.hello('Cathy', 'Good Morning')
-// [loggable] Cat#hello
-//         0: name = Cathy
-//         1: msg = Good Morning
+// [debugLog] Cat#hello(name="Cathy", msg="Good Morning")
+
+cat.info({ name: 'cathy', age: 8 });
+// [debugLog] Cat#info(name="cathy", age="8")
+
+cat.walk()
+// walking...
+// now I feel sleepy...
+// [timeLog] Cat#walk(): 0.154ms
 ```
