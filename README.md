@@ -43,11 +43,27 @@ class Cat {
       age,
     };
   }
+  
+  @timeLog(arguments)
+  public walk() {
+    console.log('walking...');
+    for (let i = 0; i < 100; i++) {
+      // do nothing
+    }
+    console.log('now I feel sleepy...');
+  }
 }
 
 const cat = new Cat();
+
 cat.hello('Cathy', 'Good Morning')
 // [debugLog] Cat#hello(name="Cathy", msg="Good Morning")
+
 cat.info({ name: 'cathy', age: 8 });
 // [debugLog] Cat#info(name="cathy", age="8")
+
+cat.walk()
+// walking...
+// now I feel sleepy...
+// [timeLog] Cat#walk(): 0.154ms
 ```
