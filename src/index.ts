@@ -38,3 +38,20 @@ export function debugLog(...params): MethodDecorator {
     };
   };
 }
+
+export function timeLog(...params): MethodDecorator {
+  return (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) => {
+    return {
+      ...descriptor,
+      value() {
+        const func = descriptor.value;
+        const argsName = getArgumentNames(func);
+        const args = arguments;
+        const tag = `[timeLog] ${target.constructor.name}#${propertyKey}(${buildParamsLog(args, argsName)})`;
+        console.time(tag);
+        func(...arguments); // calls original function with original arguments
+        console.timeEnd(tag);
+      },
+    };
+  };
+}
